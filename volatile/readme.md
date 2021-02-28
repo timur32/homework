@@ -1,4 +1,4 @@
-## Script gets currency history and do something
+## Script gets currency history from yandex, calculate valatile and etc.
 
 
 ## Script description
