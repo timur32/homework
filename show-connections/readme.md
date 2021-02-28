@@ -1,7 +1,8 @@
-Script show information about current network activities.
+## Script show information about current network activities.
 
-Example: ./script.sh -p firefox -n 10
-Example: ./script.sh -p sshd -l
+### Example: ./script.sh -s -p firefox -n 10
+
+### Example: ./script.sh -s -p sshd -l
 
 First function is help() print help message.
 It can be call by -p parameter.
