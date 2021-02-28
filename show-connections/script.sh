@@ -5,7 +5,7 @@ help() {
  cat <<EOF
 
 Script will show established network connection or listening processes
-[-h] [-l] -p process -n number
+[-h] [-l] [-s] -p process -n number
 
  -h  Print help
  -p  Specify process name by pid or name
