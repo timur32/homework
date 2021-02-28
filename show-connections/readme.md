@@ -28,7 +28,7 @@ Listening sockets
        tcp 0.0.0.0:22   467/sshd
       tcp6      :::22   467/sshd
 ```
-## Description script
+## Script description
 First function is help() print help message.
 It can be call by -p parameter.
 help() call automatically if you run script without any parameters.
