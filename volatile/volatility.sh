@@ -2,7 +2,7 @@
 
 #curl -s https://yandex.ru/news/quotes/graph_2000.json > ./quotes.json
 
-#set previos month by default
+#set previous month by default
 month=$(date +%m -d '1 month ago')
 
 #Check requirements for enter correct month
