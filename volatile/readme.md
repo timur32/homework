@@ -1,4 +1,6 @@
 ## Script gets currency history from yandex, calculate volatile and etc.
+### Usage:
+  volatility.sh \<Number of month\>
 
 ### Example: Calculate volatile for February
 ````bash
@@ -32,9 +34,14 @@ Minimal volatile:
 ## Script description
 Download currency rates from yandex and save to file
 
+Set previous month by default
+
+IF-block checks if entered number of month is correct
+
 IF-block check source file for existence and reading
 IF true:
   First, get data from file and calculate average currency for last 14 days.
+  Get min and max year in downloaded file from yandex.
 
   Next cycle FOR, that put varible year in json-request.
   JQ-request filter currency by year and month.
@@ -43,6 +50,7 @@ IF true:
   Calculate volatile and collect them to string for analysis.
   Print min max and mean for each year.
   
-  Print min volatile in March
+  Print volatile of specified month of each year.
+  Print MIN volatile of specified month of all years.
 IF false:
   exit
