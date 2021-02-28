@@ -1,5 +1,7 @@
-Script gets currency history and do something
+## Script gets currency history and do something
 
+
+## Script description
 Download currency rates from yandex and save to file
 
 IF-block check source file for existence and reading
