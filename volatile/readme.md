@@ -1,6 +1,6 @@
 ## Script gets currency history from yandex, calculate volatile and etc.
 ### Usage:
-  volatility.sh <Number of month>
+  volatility.sh \<Number of month\>
 
 ### Example: Calculate volatile for February
 ````bash
@@ -50,7 +50,7 @@ IF true:
   Calculate volatile and collect them to string for analysis.
   Print min max and mean for each year.
   
-  Print volatile in each year.
-  Print min volatile in specified month.
+  Print volatile of specified month of each year.
+  Print MIN volatile of specified month of all years.
 IF false:
   exit
