@@ -1,8 +1,34 @@
-Script show information about current network activities.
+## Script show information about current network activities.
 
-Example: ./script.sh -p firefox -n 10
-Example: ./script.sh -p sshd -l
+### Usage:
+- -h  Print help
+- -p  Specify process name by pid or name.
+     Example: -p firefox
+- -n  Specify number of summary results.
+     Example: -n 10
+- -s  Use sudo
+- -l  Show listening processes
 
+### Example 1: Show Firefox connections
+```bash
+$./script.sh -p firefox -n 10
+  Count Organization
+      1 Amazon.com,Inc.
+     11 AmazonTechnologiesInc.
+      1 ANSCommunications,Inc
+      3 GitHub,Inc.
+     14 GoogleLLC
+      1 MCICommunicationsServices,Inc.
+      3 TwitterInc.
+```
+### Example 2: Show listening processes
+```bash
+./script.sh  -l -s
+Listening sockets
+       tcp 0.0.0.0:22   467/sshd
+      tcp6      :::22   467/sshd
+```
+## Description script
 First function is help() print help message.
 It can be call by -p parameter.
 help() call automatically if you run script without any parameters.
