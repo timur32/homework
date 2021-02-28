@@ -1,4 +1,4 @@
-## Script gets currency history from yandex, calculate valatile and etc.
+## Script gets currency history from yandex, calculate volatile and etc.
 
 ### Example: Calculate volatile for February
 ````bash
