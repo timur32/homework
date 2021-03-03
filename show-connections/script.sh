@@ -53,18 +53,17 @@ getConnections () {
     echo "  You didnt enter PID or name. By default will be show all connections"
     proc=''
   fi
-  if ! [[  "${results}" =~ ^[0-9]+$ ]]
+  if ! [[ "${results}" =~ ^[0-9]+$ ]] || [[ "${results}" -lt 1 ]] || [[ "${results}" -gt 99 ]]
   then
-    echo "  You didnt enter number of results. Default number - 5"
+    echo "  You didnt enter or entered uncorrect number of results. Default number - 5"
     results=5
   fi
-
 
   #if varible contains flag o (organization) then use whois
   if [[ ${flag} =~ "o" ]]
   then
-    echo "  Count Organization"
-    requestIP=$(${sudo} netstat -tunp 2> /dev/null | awk -v proc=$proc '/'$proc'/ {print $5}' | cut -d: -f1)
+    echo "  Count Organization"    
+    requestIP=$(${sudo} netstat -tunp 2> /dev/null | awk -v proc=$proc '{if ($7 ~ /'$proc'/) print $5}' | cut -d: -f1)
     for ip in $requestIP
     do
       summ+=($(whois $ip | awk -F':' 'BEGIN{ORS="|"} /^OrgName/ {print $2;exit;}' ))
@@ -76,7 +75,7 @@ getConnections () {
   if [[ ${flag} =~ "l" ]]
   then
     echo "  Listening sockets"
-    ${sudo} netstat -tunpl 2> /dev/null | awk -v proc=$proc '/'$proc'/ && /LISTEN/ {printf "%10s %10s %10s\n", $1,$4,$7}'| tail -n$results
+    ${sudo} netstat -tunpl 2> /dev/null | awk -v proc=$proc '/LISTEN/ {if ($7 ~ /'$proc'/) printf "%10s %10s %10s\n", $1,$4,$7}'| tail -n$results
   fi
   exit
 }
