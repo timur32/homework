@@ -37,16 +37,14 @@ then
   for year in $(seq $minyear $maxyear)
   do
     jqreq=$(jq --arg Y $year --arg M $month -r '.prices[][0] |= (. / 1000 | strftime("%Y%m")) | .prices[] | select(.[] == $Y+$M)| .[1]' quotes.json)
-    min=$( echo "$jqreq" | sort | head -n1)
-    max=$( echo "$jqreq" | sort | tail -n1)
-    mean=$( echo "$jqreq" | awk -v mean=0 '{mean+=$1} END {print mean/NR}')
-    volatile+=$( awk -v mean="$mean" -v min="$min" -v max="$max" -v year="$year" 'BEGIN{if (mean>0) print year ,((mean-min)+(mean+max))/2,"|"}' )   
-    printf 'Year:%5s Min:%10s  Max:%10s  Mean:%10s\n' $year $min $max $mean
+    results+=$(echo "$jqreq" | awk -v year="$year" \
+                               '{if (min=="") {min=$1; max=$1}; if($1>max) {max=$1}; if($1<min) {min=$1}} \
+	                        END { if (min!="") {printf "Year:%5s Min:%10s Max:%10s Volatile:%10s |",\
+			       	year, min, max, (max-min)/2}}')
   done
-    printf "\nYear Volatile\n"
-    printf '%s\n' "${volatile[@]}"  | sed 's@|@\n@g'
-    printf "Minimal volatile: "
-    printf '%s\n' "${volatile[@]}" | sed 's@|@\n@g' | sort -nk 2 | head -n 2
+  printf '%s\n' "${results[@]}"  | sed 's@|@\n@g'
+#     printf "Minimal volatile: \n"
+printf '%s\n' "${results[@]}" | awk 'BEGIN {RS="|"} {{print $8};{if (min=="") {min=$8};if($8<min) {min=$8}} } END {print min}'
 else
   echo "File quotes.json not exists"
   exit
