@@ -7,14 +7,22 @@ then
   exit
 fi
 
-#Make temporary file
-temp=$(basename $0)
-TMPFILE=$(mktemp /tmp/${temp}.XXXXXX) || exit 1
-
 #parse url for get user and repository
 userrep=$(echo $1 | sed -e's@^http[s]\?://github.com/@@g')
 user=$(echo $userrep | awk -F"/" '{print $1}')
 repo=$(echo $userrep | awk -F"/" '{print $2}')
+
+#Check HTTP response
+checkrepo=$(curl -o /dev/null -Isw '%{http_code}' https://api.github.com/repos/$user/$repo)
+if ! [[ $checkrepo == 200 ]]
+then
+  echo "You entered URL to non-existent repository! HTTP-code: $checkrepo"
+  exit
+fi
+
+#Make temporary file
+temp=$(basename $0)
+TMPFILE=$(mktemp /tmp/${temp}.XXXXXX) || exit 1
 
 #Get number of pages that api will give
 head="Accept: application/vnd.github.v3+json" 
