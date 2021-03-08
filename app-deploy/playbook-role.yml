@@ -5,4 +5,5 @@
   roles:
     - deploy_nginx
     - deploy_flask 
+    - server-security
 
