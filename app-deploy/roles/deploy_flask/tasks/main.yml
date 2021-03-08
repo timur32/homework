@@ -1,0 +1,53 @@
+---
+- name: Disable nginx defaultsite
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Nginx reload
+
+- name: Add proxypass config for flask
+  template:
+    src: etc/nginx/conf.d/flask.conf.j2
+    dest: /etc/nginx/conf.d/flask.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Nginx reload
+
+- name: Install python-pip
+  package:
+    name: python-pip
+    state: latest
+
+- name: Create directory for flask
+  file:
+    path: '/{{ project_dir }}'
+    state: directory
+
+- name: Copy flask-app and requirements
+  copy:
+    src: '{{ project_dir }}/{{ item }}'
+    dest: '/{{ project_dir }}'
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - fl.py
+    - requirements.txt
+
+- name: Install requirements
+  pip:
+    requirements: '/{{ project_dir }}/requirements.txt'
+
+- name: Create file for systemd
+  template:
+    src: etc/systemd/system/flask-srv.service.j2
+    dest: /etc/systemd/system/flask-srv.service
+  notify: Systemctl reload
+
+- name: Start flask service
+  service:
+    name: flask-srv.service
+    state: started
+    enabled: yes
+

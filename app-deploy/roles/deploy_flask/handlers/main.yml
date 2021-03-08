@@ -1,0 +1,9 @@
+---
+
+- name: Nginx reload
+  service:
+    name: nginx
+    state: reloaded
+
+- name: Systemctl reload
+  command: systemctl daemon-reload

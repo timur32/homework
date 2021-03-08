@@ -1,0 +1,11 @@
+[Unit]
+Description=Flask server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/bin/env python /{{ project_dir }}/fl.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
