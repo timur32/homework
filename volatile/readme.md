@@ -8,31 +8,21 @@ $ ./volatility.sh 2
 
 Calculate results for February.
 
-Mean for last 14 days: 89.6257
+Mean for last 14 days: 89.377
 
-Year: 2014 Min:         0  Max:            Mean:          
-Year: 2015 Min:     68.61  Max:    77.515  Mean:   72.8649
-Year: 2016 Min:     81.84  Max:    90.269  Mean:   85.8178
-Year: 2017 Min:      60.4  Max:     64.76  Mean:   62.1779
-Year: 2018 Min:   68.5725  Max:    71.505  Mean:   70.2216
-Year: 2019 Min:     74.09  Max:    75.275  Mean:    74.729
-Year: 2020 Min:      68.7  Max:     73.82  Mean:   69.9228
-Year: 2021 Min:     88.77  Max:    91.785  Mean:   89.9739
+Year: 2015 Min:     68.61 Max:    77.515 Volatile:    4.4525 
+Year: 2016 Min:     81.84 Max:    90.269 Volatile:    4.2145 
+Year: 2017 Min:      60.4 Max:     64.76 Volatile:      2.18 
+Year: 2018 Min:   68.5725 Max:    71.505 Volatile:   1.46625 
+Year: 2019 Min:     74.09 Max:    75.275 Volatile:    0.5925 
+Year: 2020 Min:      68.7 Max:     73.82 Volatile:      2.56 
+Year: 2021 Min:     88.77 Max:    91.785 Volatile:    1.5075 
 
-Year Volatile
-2015 77.3174 
-2016 90.0323 
-2017 64.3579 
-2018 71.6878 
-2019 75.3215 
-2020 72.4828 
-2021 91.4814 
-
-Minimal volatile: 
-2017 64.3579 
+Minimal volatile in 2019 = 0.5925
 ````
 ## Script description
-Download currency rates from yandex and save to file
+IF-block checks download rates-files
+   Download currency rates from yandex and save to file
 
 Set previous month by default
 
@@ -45,12 +35,10 @@ IF true:
 
   Next cycle FOR, that put varible year in json-request.
   JQ-request filter currency by year and month.
-  Get min and max number by sortering.
-  Calculate average number.
-  Calculate volatile and collect them to string for analysis.
-  Print min max and mean for each year.
+  Calculate min, max, volatile and collect them to string for analysis.
+
+  Print min max and volatile for each year.
   
-  Print volatile of specified month of each year.
   Print MIN volatile of specified month of all years.
 IF false:
   exit
