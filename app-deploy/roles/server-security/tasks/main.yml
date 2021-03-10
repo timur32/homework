@@ -1,23 +1,4 @@
 ---
-
-- name: SSH Auth by pass disable
-  lineinfile: 
-    dest: "/etc/ssh/sshd_config" 
-    regexp: '^(#\s*)?PasswordAuthentication '
-    line: 'PasswordAuthentication no'
-  notify: sshd restart
-  
-- name: SSH reject root login
-  lineinfile: 
-    dest: "/etc/ssh/sshd_config" 
-    regexp: '^(#\s*)?PermitRootLogin' 
-    line: 'PermitRootLogin no'
-  notify: sshd restart
-  
-- name: SSH reject empty password
-  lineinfile: 
-    dest: "/etc/ssh/sshd_config" 
-    regexp: '^#?PermitEmptyPasswords' 
-    line: 'PermitEmptyPasswords no'
-  notify: sshd restart
-
+- include: ssh.yml
+- include: iptables.yml
+- include: sysctl.yml
