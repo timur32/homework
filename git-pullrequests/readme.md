@@ -1,6 +1,6 @@
 ## Script use githab api, gets open pull-requests and their authors
 
-### Example
+### Example 1
 ```bash
 $ ./script_git.sh https://github.com/angular/angular-cli
 Opened PRs: 35
@@ -28,6 +28,23 @@ Opened PRs: 35
 1 laurentgoudet
 ...
 ```
+### Example 2
+```bash
+$ ./script_git.sh https://github.com/pi-hole/pi-hole 63a93171d4bd39856caac6c42a13141225725bf
+Opened PRs: 20
+
+---Top contributors:---
+3 PromoFaux
+2 jlagermann
+2 andras-tim
+
+---Opened PRs with labels:---
+1 pemensik
+1 jlagermann
+1 CrAlMo
+1 corbolais
+```
+
 ## Script description
 
 First IF-block checks existence of url-argument.
