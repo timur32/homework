@@ -7,6 +7,17 @@ then
   exit
 fi
 
+if [ -z "$2" ]
+then
+  echo " You can use your token as 2nd argument. Unauthenticated clients can make 60 requests per hour."
+  echo " Example: ./script_git.sh https://github.com/user/repository 5199831f4dd3b79e7c5b7e0ebe75d67aa66e79d4"
+  headkey=""
+  token=""
+else
+  headkey="-H "
+  token="Authorization: token $2"
+fi
+
 #parse url for get user and repository
 userrep=$(echo $1 | sed -e's@^http[s]\?://github.com/@@g')
 user=$(echo $userrep | awk -F"/" '{print $1}')
@@ -26,11 +37,11 @@ TMPFILE=$(mktemp /tmp/${temp}.XXXXXX) || exit 1
 
 #Get number of pages that api will give
 head="Accept: application/vnd.github.v3+json" 
-pages=$(curl -s -I -H $head https://api.github.com/repos/$user/$repo/pulls?state=open | grep '^link:' | sed -e 's@^link:.*page=@@g' -e 's@>.*$@@g')
+pages=$(curl -s -I -H $head $headkey"$token" https://api.github.com/repos/$user/$repo/pulls?state=open | grep '^link:' | sed -e 's@^link:.*page=@@g' -e 's@>.*$@@g')
 
 #Data from each page collect to temp file
 function request {
-  echo -n $(curl -sH $head https://api.github.com/repos/$user/$repo/pulls?page="$1"&state=open) >> $TMPFILE
+  echo -n $(curl -sH $head $headkey"$token" https://api.github.com/repos/$user/$repo/pulls?page="$1"&state=open) >> $TMPFILE
 }
 
 #Request each page api-response
