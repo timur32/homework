@@ -10,10 +10,14 @@ def emojidecorate(word, count):
 @app.route('/', methods=['GET', 'POST'])
 def index():
 #   print(request.is_json)
- 
-    data = request.get_json(force=True)
-    return emojidecorate(data['word'], data['count'])
+    if request.method == 'POST':
+      data = request.get_json(force=True)
+      return emojidecorate(data['word'], data['count'])
+    elif request.method == 'GET':
+      return 'You sent GET-request'
+    else:
+      return 'This service accept only GET or POST requests'
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port = 5001)
+    app.run(debug=True, host='127.0.0.1', port = 5001)
 
