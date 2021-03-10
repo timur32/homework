@@ -30,10 +30,15 @@ Opened PRs: 35
 ```
 ## Script description
 
-First IF-block checks existence of argument.
+First IF-block checks existence of url-argument.
+
+Second IF-block checks existence 2nd argument that contain user-token.
+
+Parse argument for get user and repository
+
+Check existence of specified repository
 
 Make temporary file for collect data from all pages.
-Parse argument for get user and repository
 
 Get number of response pages use curl -I
 
