@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
-curl -s https://yandex.ru/news/quotes/graph_2000.json > ./quotes.json
+url="https://yandex.ru/news/quotes/graph_2000.json"
+#Check HTTP 
+checkurl=$(curl -o /dev/null -Isw '%{http_code}' $url)
+if [[ $checkurl == 200 ]]
+then
+  curl -s $url > ./quotes.json 
+else
+  echo "Bad link to file. Please check $url HTTP-code: $checkurl"
+  exit
+fi
 
 #set previous month by default
 month=$(date +%m -d '1 month ago')
