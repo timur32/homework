@@ -7,3 +7,8 @@
 
 - name: Systemctl reload
   command: systemctl daemon-reload
+
+- name: Flask restart
+  service:
+    name: flask-srv
+    state: restarted

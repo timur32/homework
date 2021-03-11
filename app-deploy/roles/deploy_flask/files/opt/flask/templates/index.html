@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask-service</title>
+</head>
+<body>
+   <h2>This is flask service that receive JSON object and return a string decorated with emoji</h2>
+   <p>curl -XPOST -d'{"word":"evilmartian", "count": 3}' http://myvm.localhost/</p>
+   <p>💀evilmartian💀evilmartian💀evilmartian💀</p>
+   <p>curl -XPOST -d'{"word":"mice", "count": 5}' http://myvm.localhost/</p>
+   <p>🐘mice🐘mice🐘mice🐘mice🐘mice🐘</p>
+</body>
+</html>
