@@ -21,19 +21,17 @@
 
 - name: Create directory for flask
   file:
-    path: '/{{ project_dir }}'
+    path: '/{{ project_dir }}/templates'
     state: directory
 
 - name: Copy flask-app and requirements
   copy:
-    src: '{{ project_dir }}/{{ item }}'
+    src: '{{ project_dir }}/'
     dest: '/{{ project_dir }}'
     owner: root
     group: root
     mode: 0644
-  with_items:
-    - fl.py
-    - requirements.txt
+  notify: Flask restart
 
 - name: Install requirements
   pip:

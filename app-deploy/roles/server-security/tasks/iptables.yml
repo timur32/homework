@@ -6,6 +6,11 @@
     - iptables
     - iptables-persistent
 
+- name: Iptables temporary set accept
+  iptables:
+    chain: INPUT
+    policy: ACCEPT
+
 - name: Iptables clean rules
   iptables:
     flush: true
@@ -61,6 +66,7 @@
     destination_port: 443
     jump: ACCEPT
     protocol: tcp
+
 - name: Iptables default drop in input chain
   iptables:
     chain: INPUT
