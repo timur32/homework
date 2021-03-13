@@ -24,10 +24,10 @@
     <h2>This is flask service that receive JSON object<br> and return a string decorated with emoji</h2>
   <div align="left" id="layer2">
     <h3>Examples</h3>
-    <p>$ curl -XPOST -d'{"word":"evilmartian", "count": 3}' http://myvm.localhost/<br>
-          💀evilmartian💀evilmartian💀evilmartian💀</p>
-     <p>$ curl -XPOST -d'{"word":"mice", "count": 5}' http://myvm.localhost/<br>
-          🐘mice🐘mice🐘mice🐘mice🐘mice🐘</p>
+    <p>$ curl -XPOST -d'{"word":"evilmartian", "count": 3}' http://{{ ansible_host }}/<br>
+       💀evilmartian💀evilmartian💀evilmartian💀</p>
+    <p>$ curl -k -XPOST -d'{"word":"mice", "count": 5}' https://{{ ansible_host }}/<br>
+       🐘mice🐘mice🐘mice🐘mice🐘mice🐘</p>
   </div>
   </div>
 

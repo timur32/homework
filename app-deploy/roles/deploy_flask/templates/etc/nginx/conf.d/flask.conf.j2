@@ -1,5 +1,5 @@
 server {
-   server_name myvm.localhost {{ ansible_default_ipv4.address }};
+   server_name {{ ansible_host }} {{ ansible_default_ipv4.address }};
    listen 80 default_server;
    listen 443 ssl http2 default_server;
    ssl_certificate      /etc/nginx/certs/server.crt;
