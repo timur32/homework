@@ -44,6 +44,12 @@
     mode: 0644
   notify: Flask restart
 
+- name: Copy html file
+  template:
+    src: opt/flask/templates/index.j2
+    dest: /opt/flask/templates/index.html
+  notify: Flask restart
+
 - name: Install requirements
   pip:
     requirements: '/{{ project_dir }}/requirements.txt'
@@ -55,14 +61,14 @@
 
 - name: Nginx create certificate sign-request
   openssl_csr:
-    common_name: 'myvm.localhost'
+    common_name: '{{ ansible_host }}'
     country_name: 'BY'
-    email_address: 'admin@myvm.localhost'
+    email_address: 'admin@{{ ansible_host }}'
     locality_name: 'City'
     organization_name: 'SomeOrganization'
     path: '/etc/nginx/certs/server.csr'
     subject_alt_name: 
-      - 'DNS:*.myvm.localhost'
+      - 'DNS:*.{{ ansible_host }}'
     privatekey_path: '/etc/nginx/certs/server.rsa'
 
 - name: Nginx create ss-certificate
