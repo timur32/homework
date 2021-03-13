@@ -1,11 +1,22 @@
 ---
-- name: Disable nginx defaultsite
+- name: Nginx Disable defaultsite
   file:
     path: /etc/nginx/sites-enabled/default
     state: absent
   notify: Nginx reload
 
-- name: Add proxypass config for flask
+- name: Nginx Create nginx directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+  with_items:
+    - '/etc/nginx/conf.d'
+    - '/etc/nginx/certs'
+
+- name: Nginx Add proxypass config for flask
   template:
     src: etc/nginx/conf.d/flask.conf.j2
     dest: /etc/nginx/conf.d/flask.conf
@@ -36,6 +47,31 @@
 - name: Install requirements
   pip:
     requirements: '/{{ project_dir }}/requirements.txt'
+
+- name: Nginx create key
+  openssl_privatekey:
+    path: '/etc/nginx/certs/server.rsa'
+    size: 2048
+
+- name: Nginx create certificate sign-request
+  openssl_csr:
+    common_name: 'myvm.localhost'
+    country_name: 'BY'
+    email_address: 'admin@myvm.localhost'
+    locality_name: 'City'
+    organization_name: 'SomeOrganization'
+    path: '/etc/nginx/certs/server.csr'
+    subject_alt_name: 
+      - 'DNS:*.myvm.localhost'
+    privatekey_path: '/etc/nginx/certs/server.rsa'
+
+- name: Nginx create ss-certificate
+  openssl_certificate:
+    csr_path: '/etc/nginx/certs/server.csr'
+    path: '/etc/nginx/certs/server.crt'
+    provider: selfsigned
+    privatekey_path: '/etc/nginx/certs/server.rsa'
+  notify: Nginx reload
 
 - name: Create file for systemd
   template:
