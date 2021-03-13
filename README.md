@@ -6,4 +6,5 @@ Homework consist of next tasks:
 
 - [Script](https://github.com/timur32/homework/tree/main/git-pullrequests) that use githab api, gets open pull-requests and their authors
 
-- Deploy flask application via Ansible ( under development )
+- [Deploy](https://github.com/timur32/homework/tree/main/app-deploy) simple flask application via Ansible
+
