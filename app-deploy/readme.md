@@ -13,20 +13,20 @@ $ curl -k -XPOST -d'{"word":"smile", "count": 3}' https://myvm.localhost
 ```
 ## Install
 Before deploy service you must edit ./group_vars/webserver.<br>
-Change hostname, user name and ssh_key_file.<br>
+Change hostname, user name and path to ssh-key-file.<br>
 User must have permission for sudo.<br>
 For start deploy:
 ```bash
 $ ansible-plabook playbook-role.yml
 ```
 
-# Application deploy with ansible.
-There are 3 ansible roles:
+## Description
+There are three ansible roles:
 - Install Nginx
 - Deploy Flask application
 - Secure server
 
-## Roles Description
+##
 - First role install Nginx and copy default config file.
 - Second role configuring nginx for proxy requests and deploy flask application:<br>
   Disable default site, create necessary directories and copy proxypass config.<br>
