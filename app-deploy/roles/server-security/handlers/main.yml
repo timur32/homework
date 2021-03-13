@@ -5,4 +5,3 @@
     name: ssh
     state: restarted
 
-# handlers file for server-security
