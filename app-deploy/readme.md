@@ -12,10 +12,13 @@ $ curl -k -XPOST -d'{"word":"smile", "count": 3}' https://myvm.localhost
 👽smile👽smile👽smile👽
 ```
 ## Install
-For start deploy service you must change host address in inventory.ini file.
-And edit ./group_vars/webserver where change user name and ssh_key_file.
-User must have permission for sudo.
-
+Before deploy service you must edit ./group_vars/webserver.<br>
+Change hostname, user name and ssh_key_file.<br>
+User must have permission for sudo.<br>
+For start deploy:
+```bash
+$ ansible-plabook playbook-role.yml
+```
 
 # Application deploy with ansible.
 There are 3 ansible roles:
@@ -25,12 +28,12 @@ There are 3 ansible roles:
 
 ## Roles Description
 - First role install Nginx and copy default config file.
-- Second role configuring nginx for proxy requests and deploy flask application:
-  Disable default site, create necessary directories and copy proxypass config.
-  Install python-pip, copy python-app and install python requirements.
-  Generate self-signed certificate for nginx.
-  Create systemd daemon for flask application
-- Third role add security features:
-  Customize ssh daemon for reject root login and login by password.
-  Setup iptables rules ipv4
-  Disable ipv6
+- Second role configuring nginx for proxy requests and deploy flask application:<br>
+  Disable default site, create necessary directories and copy proxypass config.<br>
+  Install python-pip, copy python-app and install python requirements.<br>
+  Generate self-signed certificate for nginx.<br>
+  Create systemd daemon for flask application.
+- Third role add security features:<br>
+  Customize ssh daemon for reject root login and login by password.<br>
+  Setup iptables rules ipv4.<br>
+  Disable ipv6.
