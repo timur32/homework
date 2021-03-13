@@ -12,10 +12,13 @@ $ curl -k -XPOST -d'{"word":"smile", "count": 3}' https://myvm.localhost
 👽smile👽smile👽smile👽
 ```
 ## Install
-For start deploy service you must change host address in inventory.ini file.
-And edit ./group_vars/webserver where change user name and ssh_key_file.
+Before deploy service you must edit ./group_vars/webserver.
+Change hostname, user name and ssh_key_file.
 User must have permission for sudo.
-
+For start deploy:
+```bash
+$ ansible-plabook playbook-role.yml
+```
 
 # Application deploy with ansible.
 There are 3 ansible roles:
